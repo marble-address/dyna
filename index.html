@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>الديانة – عنوان الرخام</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="الديانة">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#065A36">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<style>
+  html,body{margin:0;height:100%;background:#065A36;font-family:Arial,sans-serif}
+  #app{position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100%;border:0;background:#F6F2E7;display:none}
+  #load{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;gap:18px}
+  #load img{width:120px;border-radius:24px}
+  #load span{font-size:16px;color:#e8dcb5}
+  #login{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:14px;color:#fff;text-align:center}
+  #login img{width:110px;border-radius:22px}
+  #login h1{margin:0;font-size:22px}
+  #login p{margin:0;color:#e8dcb5;font-size:14px}
+  #login input{width:100%;max-width:300px;font-size:20px;padding:13px;border-radius:12px;border:0;text-align:center;font-family:Arial;direction:ltr}
+  #login button{width:100%;max-width:300px;font-size:18px;font-weight:bold;padding:14px;border-radius:12px;border:0;background:#B59433;color:#fff;font-family:Arial}
+</style>
+</head>
+<body>
+<div id="load"><img src="icon-512.png" alt=""><span>جاري فتح منظومة الديانة...</span></div>
+
+<div id="login">
+  <img src="icon-512.png" alt="">
+  <h1>منظومة الديانة</h1>
+  <p>اكتب الكود اللي وصلك من محمود أبوسيف</p>
+  <input id="code" autocomplete="off" autocapitalize="off" placeholder="الكود">
+  <button onclick="enter()">دخول</button>
+</div>
+
+<iframe id="app" allow="clipboard-write" title="الديانة"></iframe>
+
+<script>
+  // لينك الأبليكيشن (Apps Script). لو اتعمل «نشر جديد» اللينك بيتغيّر ولازم يتحدّث هنا.
+  const APP = 'https://script.google.com/macros/s/AKfycbxLd4eAaoVK_Ll5mvKM26GYY44NASvGcPVW4AGG9MdRHinKdmNDbEFJeB7_FDmXYy3j/exec';
+
+  function store(k){ try{ if(k) localStorage.setItem('dyna_k', k); return localStorage.getItem('dyna_k'); }catch(e){ return k; } }
+  function open_(k){
+    const f = document.getElementById('app');
+    f.onload = function(){ document.getElementById('load').style.display='none'; f.style.display='block'; };
+    f.src = APP + '?k=' + encodeURIComponent(k);
+  }
+  function enter(){
+    const k = document.getElementById('code').value.trim();
+    if(!k) return;
+    store(k);
+    history.replaceState(null, '', '?k=' + encodeURIComponent(k));
+    document.getElementById('login').style.display='none';
+    document.getElementById('load').style.display='flex';
+    open_(k);
+  }
+  const k = new URLSearchParams(location.search).get('k') || store('');
+  if (k) { store(k); open_(k); }
+  else { document.getElementById('load').style.display='none'; document.getElementById('login').style.display='flex'; }
+</script>
+</body>
+</html>
