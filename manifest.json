@@ -1,7 +1,6 @@
 {
   "name": "الديانة – عنوان الرخام",
   "short_name": "الديانة",
-  "start_url": "./",
   "display": "standalone",
   "background_color": "#065A36",
   "theme_color": "#065A36",
